@@ -12,19 +12,22 @@ $(document).ready(function () {
     function constructBody() {
         for (var i = 9; i < 18; i++) {
             var row = $("<tr>").attr("class", "row time-block");
-            var rowItem1 = $(`<td>${i}:00 A.M</td>`).attr("class", "hour col-md");
+            var rowItem1 = $(`<td>${i}:00 A.M</td>`).attr({
+                "class": "hour col-md",
+                "value": [i]
+            } );
             var rowItem2 = $("<textarea></textarea>").attr("class", "description col-md-10");
             rowItem2.attr("")
             var rowItem3 = $("<button>" + 'Save' + "</button>").attr("class", "saveBtn col-md");
             row.append(rowItem1, rowItem2, rowItem3);
             tBody.append(row);
 
-            // var blockHour = parseInt($(".hour").val());
+            
+            // convert military time to am/pm
             if (i > 12) {
                 rowItem1.text(`${i-12}:00 P.M. `);
             }
         };
-        // convert military time to am/pm
     };
     constructBody()
     // click of save button saves items to local storage
@@ -38,12 +41,16 @@ $(document).ready(function () {
     });                
 
     console.log(moment().format('MMMM Do YYYY, h:00 a'));
-    var currentHour = moment().format('h:00');
-    var blockHour = parseInt($(".hour").text())
-    // if () {
-
-    // }
-    console.log(moment().subtract(1, 'hours').format('LT'));
+    var currentHour = moment().format('h');
+    var blockHour = parseInt($(".hour").attr("value"))
+    if (blockHour == currentHour) {
+        $("textarea").attr("class", "present description col-md-10")
+    } else if (blockHour > currentHour) {
+        $("textarea").attr("class", "past description col-md-10")
+    } else if (blockHour < currentHour) {
+        $("textarea").attr("class", "future description col-md-10")
+    }
+    console.log(currentHour);
     console.log(blockHour)
 
     // with click of save button, save enter input into local storage. 
