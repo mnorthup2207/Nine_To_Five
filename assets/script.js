@@ -83,7 +83,3 @@ $(document).ready(function () {
 });
 
 
-
-
-// color changing is not quite working
-// wont save to local storage yet
