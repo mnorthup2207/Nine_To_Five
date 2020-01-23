@@ -71,7 +71,11 @@ textarea{
   transition: all .3s ease-in-out;
 }
 @media screen and (max-width: 800px) {
-    body {
-      width: 100%;
+    .jumbotron{
+        width: 100%;
     }
+    .container{
+        width: 100%;
+    }
+    
   }
